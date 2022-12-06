@@ -17,6 +17,26 @@ namespace Restauracja.Web
             // Add services to the container.
             builder.Services.AddControllersWithViews();
 
+            builder.Services.AddAuthentication(options =>
+            {
+                options.DefaultScheme = "Cookies";
+                options.DefaultChallengeScheme = "oidc";
+            }).AddOpenIdConnect("oidc", options =>
+            {
+                options.Authority = "https://localhost:5001";
+                options.ClientId = "web";
+                options.ClientSecret = "secret";
+                options.ResponseType = "code";
+
+                options.Scope.Clear();
+                options.Scope.Add("openid");
+                options.Scope.Add("profile");
+
+                options.SaveTokens = true;
+            }).AddCookie("Cookies") 
+
+                ;
+
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
@@ -32,11 +52,12 @@ namespace Restauracja.Web
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.MapControllerRoute(
                 name: "default",
-                pattern: "{controller=Home}/{action=Index}/{id?}");
+                pattern: "{controller=Home}/{action=Index}/{id?}").RequireAuthorization();
 
             app.Run();
         }
