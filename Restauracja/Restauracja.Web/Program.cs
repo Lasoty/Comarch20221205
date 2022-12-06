@@ -1,3 +1,6 @@
+using Restauracja.Web.Services;
+using Restauracja.Web.Services.Interfaces;
+
 namespace Restauracja.Web
 {
     public class Program
@@ -5,6 +8,11 @@ namespace Restauracja.Web
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
+
+            builder.Services.AddHttpClient<IProductService, ProductService>();
+            BaseService.ProductApiBase = builder.Configuration["ServiceUrls:ProductApi"];
+
+            builder.Services.AddScoped<IProductService, ProductService>();
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();

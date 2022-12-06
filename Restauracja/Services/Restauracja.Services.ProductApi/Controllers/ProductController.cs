@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Restauracja.Common.Model;
 using Restauracja.Services.ProductApi.Model;
 using Restauracja.Services.ProductApi.Model.Dto;
 using Restauracja.Services.ProductApi.Repositories;
@@ -7,11 +8,11 @@ namespace Restauracja.Services.ProductApi.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class ProductController : ControllerBase
+    public class ProductsController : ControllerBase
     {
         private readonly IRepository<Product, ProductDto> _productRepository;
 
-        public ProductController(IRepository<Product, ProductDto> productRepository)
+        public ProductsController(IRepository<Product, ProductDto> productRepository)
         {
             _productRepository = productRepository;
         }
@@ -42,7 +43,7 @@ namespace Restauracja.Services.ProductApi.Controllers
             }
         }
 
-        [HttpPost("{id}")]
+        [HttpPost]
         public async Task<IActionResult> Add([FromBody] ProductDto value)
         {
             try

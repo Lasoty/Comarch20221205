@@ -1,4 +1,4 @@
-﻿namespace Restauracja.Services.ProductApi.Model.Dto;
+﻿namespace Restauracja.Common.Model;
 
 public class Result
 {
@@ -28,7 +28,7 @@ public class Result
         };
 }
 
-public class Result<T> : Result
+public class Result<T> : Result 
 {
     public T Data { get; set; }
 }
