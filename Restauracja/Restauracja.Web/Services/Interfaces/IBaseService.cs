@@ -3,7 +3,8 @@ using Restauracja.Web.Models;
 
 namespace Restauracja.Web.Services.Interfaces;
 
-public interface IBaseService
+public interface IBaseService : IDisposable
 {
-    Task<T> SendAsync<T>(ApiRequest apiRequest) where T : Result;
+    Result ResponseModel { get; set; }
+    Task<T> SendAsync<T>(ApiRequest apiRequest);
 }

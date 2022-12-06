@@ -1,5 +1,7 @@
 using Restauracja.Web.Services;
 using Restauracja.Web.Services.Interfaces;
+using System.IdentityModel.Tokens.Jwt;
+using Microsoft.AspNetCore.Authentication;
 
 namespace Restauracja.Web
 {
@@ -7,23 +9,29 @@ namespace Restauracja.Web
     {
         public static void Main(string[] args)
         {
+            JwtSecurityTokenHandler.DefaultMapInboundClaims = false;
+
             var builder = WebApplication.CreateBuilder(args);
-
-            builder.Services.AddHttpClient<IProductService, ProductService>();
-            BaseService.ProductApiBase = builder.Configuration["ServiceUrls:ProductApi"];
-
-            builder.Services.AddScoped<IProductService, ProductService>();
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+            builder.Services.AddHttpClient<IProductService, ProductService>();
+            BaseService.ProductAPIBase = builder.Configuration["ServiceUrls:ProductAPI"];
+            BaseService.ShoppingCartAPIBase = builder.Configuration["ServiceUrls:ShoppingCartAPI"];
+            builder.Services.AddScoped<IProductService, ProductService>();
+            builder.Services.AddScoped<ICartService, CartService>();
+            builder.Services.AddScoped<ICouponService, CouponService>();
 
             builder.Services.AddAuthentication(options =>
             {
                 options.DefaultScheme = "Cookies";
                 options.DefaultChallengeScheme = "oidc";
-            }).AddOpenIdConnect("oidc", options =>
+            })
+            .AddCookie("Cookies")
+            .AddOpenIdConnect("oidc", options =>
             {
                 options.Authority = "https://localhost:5001";
+
                 options.ClientId = "web";
                 options.ClientSecret = "secret";
                 options.ResponseType = "code";
@@ -31,19 +39,19 @@ namespace Restauracja.Web
                 options.Scope.Clear();
                 options.Scope.Add("openid");
                 options.Scope.Add("profile");
+                options.Scope.Add("verification");
+                options.ClaimActions.MapJsonKey("email_verified", "email_verified");
+                options.GetClaimsFromUserInfoEndpoint = true;
 
                 options.SaveTokens = true;
-            }).AddCookie("Cookies") 
+            });
 
-                ;
-
-            var app = builder.Build();
+            WebApplication app = builder.Build();
 
             // Configure the HTTP request pipeline.
             if (!app.Environment.IsDevelopment())
             {
                 app.UseExceptionHandler("/Home/Error");
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
 
@@ -57,7 +65,7 @@ namespace Restauracja.Web
 
             app.MapControllerRoute(
                 name: "default",
-                pattern: "{controller=Home}/{action=Index}/{id?}");
+                pattern: "{controller=Home}/{action=Index}/{id?}"); 
 
             app.Run();
         }

@@ -39,8 +39,8 @@ namespace Restauracja.Services.ProductApi.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ImageUrl")
-                        .HasMaxLength(2048)
-                        .HasColumnType("nvarchar(2048)");
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -58,37 +58,37 @@ namespace Restauracja.Services.ProductApi.Migrations
                         {
                             Id = 1L,
                             CategoryName = "Appetizer",
-                            Description = "Description",
-                            ImageUrl = "",
+                            Description = "Praesent scelerisque, mi sed ultrices condimentum, lacus ipsum viverra massa, in lobortis sapien eros in arcu. Quisque vel lacus ac magna vehicula sagittis ut non lacus.<br/>Sed volutpat tellus lorem, lacinia tincidunt tellus varius nec. Vestibulum arcu turpis, facilisis sed ligula ac, maximus malesuada neque. Phasellus commodo cursus pretium.",
+                            ImageUrl = "https://deletemell.blob.core.windows.net/images/14.jpg",
                             Name = "Samosa",
-                            Price = 0.0
+                            Price = 15.0
                         },
                         new
                         {
                             Id = 2L,
                             CategoryName = "Appetizer",
-                            Description = "Description",
-                            ImageUrl = "",
+                            Description = "Praesent scelerisque, mi sed ultrices condimentum, lacus ipsum viverra massa, in lobortis sapien eros in arcu. Quisque vel lacus ac magna vehicula sagittis ut non lacus.<br/>Sed volutpat tellus lorem, lacinia tincidunt tellus varius nec. Vestibulum arcu turpis, facilisis sed ligula ac, maximus malesuada neque. Phasellus commodo cursus pretium.",
+                            ImageUrl = "https://deletemell.blob.core.windows.net/images/12.jpg",
                             Name = "Paneer Tikka",
-                            Price = 0.0
+                            Price = 13.99
                         },
                         new
                         {
                             Id = 3L,
                             CategoryName = "Dessert",
-                            Description = "Description",
-                            ImageUrl = "",
+                            Description = "Praesent scelerisque, mi sed ultrices condimentum, lacus ipsum viverra massa, in lobortis sapien eros in arcu. Quisque vel lacus ac magna vehicula sagittis ut non lacus.<br/>Sed volutpat tellus lorem, lacinia tincidunt tellus varius nec. Vestibulum arcu turpis, facilisis sed ligula ac, maximus malesuada neque. Phasellus commodo cursus pretium.",
+                            ImageUrl = "https://deletemell.blob.core.windows.net/images/11.jpg",
                             Name = "Sweet Pie",
-                            Price = 0.0
+                            Price = 10.99
                         },
                         new
                         {
                             Id = 4L,
                             CategoryName = "Entree",
-                            Description = "Description",
-                            ImageUrl = "",
-                            Name = "Bread",
-                            Price = 0.0
+                            Description = "Praesent scelerisque, mi sed ultrices condimentum, lacus ipsum viverra massa, in lobortis sapien eros in arcu. Quisque vel lacus ac magna vehicula sagittis ut non lacus.<br/>Sed volutpat tellus lorem, lacinia tincidunt tellus varius nec. Vestibulum arcu turpis, facilisis sed ligula ac, maximus malesuada neque. Phasellus commodo cursus pretium.",
+                            ImageUrl = "https://deletemell.blob.core.windows.net/images/13.jpg",
+                            Name = "Pav Bhaji",
+                            Price = 15.0
                         });
                 });
 #pragma warning restore 612, 618

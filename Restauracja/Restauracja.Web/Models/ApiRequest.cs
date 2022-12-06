@@ -1,19 +1,17 @@
-﻿namespace Restauracja.Web.Models
+﻿namespace Restauracja.Web.Models;
+
+public class ApiRequest
 {
-    public class ApiRequest
-    {
-        public string Url { get; set; }
+    public ApiType ApiType { get; set; } = ApiType.GET;
+    public string Url { get; set; }
+    public object Data { get; set; }
+    public string AccessToken { get; set; }
+}
 
-        public object Data { get; set; }
-
-        public ApiType ApiType { get; set; } = ApiType.GET;
-    }
-
-    public enum ApiType
-    {
-        GET,
-        POST,
-        PUT,
-        DELETE
-    }
+public enum ApiType
+{
+    GET,
+    POST,
+    PUT,
+    DELETE
 }
