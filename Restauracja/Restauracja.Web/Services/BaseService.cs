@@ -1,4 +1,5 @@
-﻿using Restauracja.Common.Model;
+﻿using IdentityModel.Client;
+using Restauracja.Common.Model;
 using Restauracja.Web.Models;
 using Restauracja.Web.Services.Interfaces;
 using System.Net.Http;
@@ -28,6 +29,8 @@ namespace Restauracja.Web.Services
                 message.Headers.Add("Accept", "application/json");
 
                 //request token
+                string token = await RequestToken();
+                message.SetBearerToken(token);
 
                 message.RequestUri = new Uri(apiRequest.Url);
                 client.DefaultRequestHeaders.Clear();
@@ -60,6 +63,35 @@ namespace Restauracja.Web.Services
                 T? apiResponseDto = JsonSerializer.Deserialize<T>(res, jsonOptions);
                 return apiResponseDto;
             }
+        }
+
+        private async Task<string> RequestToken()
+        {
+            var client = httpClient.CreateClient();
+            var response = await client.GetDiscoveryDocumentAsync("https://localhost:5001");
+
+            if (response.IsError)
+            {
+                Console.WriteLine(response.Error);
+                return null;
+            }
+
+            var tokenResponse = await client.RequestClientCredentialsTokenAsync(new ClientCredentialsTokenRequest
+            {
+                Address = response.TokenEndpoint,
+
+                ClientId = "client",
+                ClientSecret = "secret",
+                Scope = "api1"
+            });
+
+            if (tokenResponse.IsError)
+            {
+                Console.WriteLine(tokenResponse.Error);
+                return null;
+            }
+
+            return tokenResponse.AccessToken;
         }
     }
 }

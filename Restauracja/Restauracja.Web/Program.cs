@@ -57,7 +57,7 @@ namespace Restauracja.Web
 
             app.MapControllerRoute(
                 name: "default",
-                pattern: "{controller=Home}/{action=Index}/{id?}").RequireAuthorization();
+                pattern: "{controller=Home}/{action=Index}/{id?}");
 
             app.Run();
         }
