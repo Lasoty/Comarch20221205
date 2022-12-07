@@ -1,4 +1,5 @@
 ﻿using Restauracja.MessageBus;
+using Restauracja.Services.OrderApi.Messages;
 
 namespace Restauracja.Services.ShoppingCartApi.Model.Dto;
 

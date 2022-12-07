@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Restauracja.Common.Model.Repositories;
+using Restauracja.MessageBus;
 using Restauracja.Services.ShoppingCartApi.Data;
 
 using Restauracja.Services.ShoppingCartApi.Services;
@@ -41,6 +42,8 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddRepositories();
 
 builder.Services.AddScoped<ICartService, CartService>();
+builder.Services.AddScoped<IMessageBus, AzureServiceBusMessageBus>();
+
 
 var app = builder.Build();
 
