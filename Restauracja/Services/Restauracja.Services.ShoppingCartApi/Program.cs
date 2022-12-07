@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Restauracja.Common.Model.Repositories;
 using Restauracja.Services.ShoppingCartApi.Data;
+
 using Restauracja.Services.ShoppingCartApi.Services;
 
 var builder = WebApplication.CreateBuilder(args);

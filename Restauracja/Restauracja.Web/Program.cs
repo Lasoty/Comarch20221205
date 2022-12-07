@@ -18,6 +18,7 @@ namespace Restauracja.Web
             builder.Services.AddHttpClient<IProductService, ProductService>();
             BaseService.ProductAPIBase = builder.Configuration["ServiceUrls:ProductAPI"];
             BaseService.ShoppingCartAPIBase = builder.Configuration["ServiceUrls:ShoppingCartAPI"];
+            BaseService.CouponAPIBase = builder.Configuration["ServiceUrls:CouponAPI"];
             builder.Services.AddScoped<IProductService, ProductService>();
             builder.Services.AddScoped<ICartService, CartService>();
             builder.Services.AddScoped<ICouponService, CouponService>();

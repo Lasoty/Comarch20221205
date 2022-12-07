@@ -7,11 +7,11 @@ namespace Restauracja.Services.CouponApi.Controllers
 
     [ApiController]
     [Route("api/[Controller]")]
-    public class CouponAPIController : ControllerBase
+    public class CouponController : ControllerBase
     {
         private readonly ICouponRepository _couponRepository;
 
-        public CouponAPIController(ICouponRepository couponRepository)
+        public CouponController(ICouponRepository couponRepository)
         {
             _couponRepository = couponRepository;
         }
